@@ -1,2 +1,13 @@
 getpid
 getppid
+write
+mmap
+mprotect
+newfstatat
+access
+open
+close
+openat
+read
+exit_group
+set_robust_list
