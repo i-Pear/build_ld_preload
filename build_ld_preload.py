@@ -2,7 +2,7 @@ import os
 import subprocess
 from collections import defaultdict, namedtuple
 
-UNIKRAFT_IMAGE_WITH_DBG = '/root/app-elfloader/build/app-elfloader_qemu-x86_64.dbg'
+KERNEL_IMAGE_WITH_DBG = '/root/app-elfloader/build/app-elfloader_qemu-x86_64.dbg'
 BYPASS_FUNCTIONS_CONFIG = './needed_bypass_functions'
 
 # read config
@@ -12,7 +12,7 @@ with open(BYPASS_FUNCTIONS_CONFIG) as f:
         bypass_functions[line.strip()] = None
 
 # get kernel func address
-for line in subprocess.run('objdump -D {}'.format(UNIKRAFT_IMAGE_WITH_DBG), stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True).stdout.decode('utf-8').split('\n'):
+for line in subprocess.run('objdump -D {}'.format(KERNEL_IMAGE_WITH_DBG), stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True).stdout.decode('utf-8').split('\n'):
     for func in bypass_functions.keys():
         if '<{}>:'.format(func) in line:
             bypass_functions[func] = {'kernel_addr': int(line.split()[0], 16)}
