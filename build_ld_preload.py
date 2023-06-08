@@ -40,5 +40,6 @@ for line in subprocess.run('objdump -D build_library/preload.so', stdout=subproc
 # rewrite .so
 with open('build_library/preload.so', 'rb+') as so:
     for f, info in bypass_functions.items():
-        so.seek(info['lib_addr']+6)
+        so.seek(info['lib_addr'])
+        so.write(int(0xff2500000000).to_bytes(6, 'big'))
         so.write(info['kernel_addr'].to_bytes(8, 'little'))
