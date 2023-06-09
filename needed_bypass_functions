@@ -120,3 +120,6 @@ open-3
 openat-4
 pipe-1
 creat-2
+rt_sigaction-3
+sysinfo-1
+epoll_wait-4
