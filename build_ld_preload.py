@@ -37,7 +37,7 @@ assert ukplat_tlsp_enter_addr is not None
 assert ukplat_tlsp_exit_addr is not None
 
 # write source code
-with open('build_library/preload.c', 'w') as w:
+with open('build/preload.c', 'w') as w:
     w.write('#include "ld_preload.h"\n\n')
     w.write('unsigned long (*ukplat_tlsp_enter)(void) = {}ULL;\n'.format(hex(ukplat_tlsp_enter_addr)))
     w.write('void (*ukplat_tlsp_exit)(unsigned long orig_tlsp) = {}ULL;\n\n'.format(hex(ukplat_tlsp_exit_addr)))
@@ -54,4 +54,4 @@ with open('build_library/preload.c', 'w') as w:
         w.write('}\n\n')
 
 # compile .so
-os.system('gcc build_library/preload.c -o build_library/preload.so -fpic -shared -O3')
+os.system('gcc build/preload.c -o build/preload.so -fpic -shared -O3')
