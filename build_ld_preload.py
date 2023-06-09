@@ -47,9 +47,9 @@ with open('build/preload.c', 'w') as w:
             continue
         f_args_count = func_args_count[f]
         w.write('unsigned long {}({}) {{\n'.format(f, ', '.join(['unsigned long arg{}'.format(x) for x in range(f_args_count)])))
-        # w.write('unsigned long orig_tlsp = ukplat_tlsp_enter();\n')
+        w.write('unsigned long orig_tlsp = ukplat_tlsp_enter();\n')
         w.write('unsigned long ret = ((unsigned long (*)({})) {}ULL)({});\n'.format(', '.join(['unsigned long arg{}'.format(x) for x in range(f_args_count)]), hex(addr), ', '.join(['arg{}'.format(x) for x in range(f_args_count)])))
-        # w.write('ukplat_tlsp_exit(orig_tlsp);\n')
+        w.write('ukplat_tlsp_exit(orig_tlsp);\n')
         w.write('return ret;\n')
         w.write('}\n\n')
 
